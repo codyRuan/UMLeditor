@@ -39,6 +39,7 @@ public class Canvas extends JPanel{
 		    	ClassDiagram cd = new ClassDiagram(c);
 		    	cd.setEnabled(true);
 		    	cd.setBounds(e.getPoint().x,e.getPoint().y, cd.getPreferredSize().width, cd.getPreferredSize().height);
+		    	cd.creatPoint = e.getPoint();
 		    	c.addObj(cd);
 		        UMLFrame.canvas.add(cd);
 		        UMLFrame.canvas.updateUI();
@@ -47,6 +48,7 @@ public class Canvas extends JPanel{
 	    		UseCaseDiagram usd = new UseCaseDiagram(c);
 	    		usd.setEnabled(true);
 	    		usd.setBounds(e.getPoint().x,e.getPoint().y, usd.getPreferredSize().width, usd.getPreferredSize().height);
+	    		usd.creatPoint = e.getPoint();
 	    		c.addObj(usd);
 	    		UMLFrame.canvas.add(usd);
 		        UMLFrame.canvas.updateUI();
@@ -70,5 +72,9 @@ public class Canvas extends JPanel{
 			
 		}
 //	    	System.out.println("dragging : "+e.getPoint());
+	}
+	public void paint(Graphics g) {
+		super.paint(g);
+		c.drawLine(g);
 	}
 }

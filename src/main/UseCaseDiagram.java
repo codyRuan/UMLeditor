@@ -22,7 +22,7 @@ public class UseCaseDiagram extends BaseObject{
 	public UseCaseDiagram(Controller c) {
 		super(c);
 		initialize();
-//	    setOpaque(false);
+	    setOpaque(false);
 	}
 	
 	private void initialize() {

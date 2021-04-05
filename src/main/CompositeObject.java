@@ -25,10 +25,15 @@ public class CompositeObject extends BaseObject{
 		this.setOpaque(false);
 		this.setEnabled(true);
 		this.setBounds(leftX, leftY, rightX-leftX, rightY-leftY);
+		creatPoint = new Point(leftX,leftY);
 		for(BaseObject obj : list) {
+			obj.x = obj.getX();
+			obj.y = obj.getY();
 			obj.setLocation(new Point(obj.getX()-leftX, obj.getY()-leftY));
 			obj.deleteListener();
 			UMLFrame.canvas.remove(obj);
+			obj.hidePoint();
+			c.removeObj(obj);
 			this.add(obj);
 		}
 		MouseAdapter listener = new Listener();
