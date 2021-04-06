@@ -9,7 +9,7 @@ public class Controller {
 	private int mode;
 	private final ArrayList<BaseObject> objList = new ArrayList<>();
 	private final ArrayList<BaseObject> selectedList = new ArrayList<>();
-	private final ArrayList<BaseLine> lineList = new ArrayList<>();
+	final ArrayList<BaseLine> lineList = new ArrayList<>();
 	private BaseObject selectObj;
 	private BaseObject enteredObj;
 	public Controller() {

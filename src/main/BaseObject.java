@@ -14,6 +14,7 @@ public class BaseObject extends JPanel{
 	int x, y;
 	Point creatPoint;
 	private final ArrayList<Point> directionList = new ArrayList<>();
+	final ArrayList<MyPair> allLineList = new ArrayList<>();
 	BaseObject me;
 	Controller c;
 	public BaseObject(Controller c) {
@@ -33,8 +34,14 @@ public class BaseObject extends JPanel{
         		showPoint();
         		c.selected(me);
         		break;
-        	case 2 | 3 | 4:
+        	case 2:
+        	case 3:
+        	case 4:
         		start = me.getNearPoint(e.getPoint());
+        		start = new Point(start.x+me.getX(), start.y+me.getY());
+        		break;
+        	default:
+        		break;
         	}
         }
         @Override
@@ -42,13 +49,21 @@ public class BaseObject extends JPanel{
         	x = e.getX();
         	y = e.getY();
         	BaseObject toObj = c.getEnteredObj();
-        	
         	switch(c.getMode()) {
         	case 2:
         		if(toObj != null && toObj != me) {
-            		end = toObj.getNearPoint(e.getPoint());
+        			end = new Point(e.getX()-(toObj.getX()-me.getX()),
+        					e.getY()-(toObj.getY()-me.getY()));
+        			System.out.println("release point:"+end);
+            		end = toObj.getNearPoint(end);
+            		end = new Point(end.x+toObj.getX(),end.y+toObj.getY());
             		BaseLine bl = new BaseLine(start,end);
             		c.addLine(bl);
+            		MyPair pair = new MyPair(bl,true);
+            		me.allLineList.add(pair);
+            		pair = new MyPair(bl,false);
+            		toObj.allLineList.add(pair);
+            		UMLFrame.canvas.repaint();
             	}
         		break;
         	case 3:
@@ -57,9 +72,9 @@ public class BaseObject extends JPanel{
         		break;
         	}
         }
-        @Override
+		@Override
         public void mouseEntered(MouseEvent e) {
-			System.out.println("line point to");
+        	updateProperties();
 			c.entered(me);
 		}
         @Override
@@ -73,6 +88,17 @@ public class BaseObject extends JPanel{
 			if(c.getMode() == 1) {
 				end = new Point(me.getX()+(e.getX()-start.x),me.getY()+(e.getY()-start.y));
 				me.setLocation(end);
+				for(MyPair pair : allLineList) {
+					c.lineList.remove(pair.first);
+					if(pair.second)
+						pair.first.front = new Point(pair.first.front.x+(e.getX()-start.x),
+								pair.first.front.y+(e.getY()-start.y));
+					else {
+						pair.first.to = new Point(pair.first.to.x+(e.getX()-start.x),pair.first.to.y+(e.getY()-start.y));
+					}
+					c.lineList.add(pair.first);
+				}
+				UMLFrame.canvas.repaint();
 			}
 		}
 		
