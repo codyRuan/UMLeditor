@@ -60,7 +60,7 @@ public class Controller {
 			if(obj_s.x >= lx && obj_s.y >= ly
 					&& obj_e.x <= rx && obj_e.y <= ry) {
 				if(!obj.group.isEmpty()) {
-					for(BaseObject o : obj.myteems) {
+					for(BaseObject o : obj.group.get(obj.group.size()-1).second) {
 						o.showPoint();
 					}
 				}

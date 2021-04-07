@@ -1,9 +1,9 @@
 package main;
 
-public class MyPair {
-	BaseLine first;
-	boolean second;
-	public MyPair(BaseLine b, boolean h) {
+public class MyPair<U,V> {
+	U first;
+	V second;
+	public MyPair(U b, V h) {
 		this.first = b;
 		this.second = h;
 	}

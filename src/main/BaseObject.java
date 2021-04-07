@@ -13,8 +13,8 @@ public class BaseObject extends JPanel{
 	int width, height;
 	int x, y;
 	Point creatPoint;
-	final ArrayList<Integer> group = new ArrayList<>();
-	final ArrayList<BaseObject> myteems = new ArrayList<>();
+	final ArrayList<MyPair<Integer,ArrayList<BaseObject>>> group = new ArrayList<>();
+//	final ArrayList<BaseObject> myteems = new ArrayList<>();
 	private final ArrayList<Point> directionList = new ArrayList<>();
 	final ArrayList<MyPair> allLineList = new ArrayList<>();
 	BaseObject me;
@@ -34,7 +34,7 @@ public class BaseObject extends JPanel{
         	case 1:
         		c.hideAll();
         		if(!me.group.isEmpty()) {
-        			for(BaseObject b : me.myteems) {
+        			for(BaseObject b : me.group.get(me.group.size()-1).second) {
 						b.showPoint();
 					}
         		}
@@ -77,7 +77,7 @@ public class BaseObject extends JPanel{
 		        		break;
 		        	}
 		        	c.addLine(bl);
-            		MyPair pair = new MyPair(bl,true);
+            		MyPair<BaseLine,Boolean> pair = new MyPair(bl,true);
             		me.allLineList.add(pair);
             		pair = new MyPair(bl,false);
             		toObj.allLineList.add(pair);
@@ -100,7 +100,7 @@ public class BaseObject extends JPanel{
 		public void mouseDragged(MouseEvent e) {
 			if(c.getMode() == 1) {
 				if(!me.group.isEmpty()) {
-					for(BaseObject b : me.myteems) {
+					for(BaseObject b : me.group.get(me.group.size()-1).second) {
 						b.move(e, start);
 					}
 				}
@@ -131,15 +131,16 @@ public class BaseObject extends JPanel{
 		me.setLocation(end);
 		// move line
 		for(MyPair pair : allLineList) {
-			c.lineList.remove(pair.first);
-			if(pair.second)
-				pair.first.front 
-				= new Point(pair.first.front.x+(e.getX()-start.x),
-						pair.first.front.y+(e.getY()-start.y));
-			else {
-				pair.first.to = new Point(pair.first.to.x+(e.getX()-start.x),pair.first.to.y+(e.getY()-start.y));
+			BaseLine b = (BaseLine) pair.first;
+			Boolean bool = (Boolean) pair.second;
+			c.lineList.remove(b);
+			if(bool) // head side
+				b.front = new Point(b.front.x+(e.getX()-start.x),
+						b.front.y+(e.getY()-start.y));
+			else { // tail side
+				b.to = new Point(b.to.x+(e.getX()-start.x),b.to.y+(e.getY()-start.y));
 			}
-			c.lineList.add(pair.first);
+			c.lineList.add(b);
 		}
 	}
 	public void changeName(String s) {

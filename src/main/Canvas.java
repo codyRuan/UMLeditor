@@ -40,6 +40,7 @@ public class Canvas extends JPanel{
 	    	case 1:
 	    		c.hideAll();
 	    		c.selected(null);
+	    		System.out.println("set selected to null");
 	    		break;
 	    	case 5:
 		    	ClassDiagram cd = new ClassDiagram(c);
