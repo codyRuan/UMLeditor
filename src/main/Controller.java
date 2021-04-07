@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	private int mode;
+	private int g = 0;
 	private final ArrayList<BaseObject> objList = new ArrayList<>();
 	private final ArrayList<BaseObject> selectedList = new ArrayList<>();
 	final ArrayList<BaseLine> lineList = new ArrayList<>();
@@ -47,13 +48,24 @@ public class Controller {
 	}
 	public void selectedAll(Point start, Point end) {
 		Point obj_s, obj_e;
+		int lx, ly, rx, ry;
+		lx = Math.min(start.x, end.x);
+		ly = Math.min(start.y, end.y);
+		rx = Math.max(start.x, end.x);
+		ry = Math.max(start.y, end.y);
 		for(BaseObject obj : objList) {
 			obj_s = new Point(obj.getLocation());
 			obj_e = new Point(obj.getX()+obj.getWidth(),
 					obj.getY()+obj.getHeight());
-			if(obj_s.x >= start.x && obj_s.y >= start.y
-					&& obj_e.x <= end.x && obj_e.y <= end.y) {
-				obj.showPoint();
+			if(obj_s.x >= lx && obj_s.y >= ly
+					&& obj_e.x <= rx && obj_e.y <= ry) {
+				if(!obj.group.isEmpty()) {
+					for(BaseObject o : obj.myteems) {
+						o.showPoint();
+					}
+				}
+				else
+					obj.showPoint();
 				selectedList.add(obj);
 			}
 		}
@@ -77,5 +89,10 @@ public class Controller {
 		for(BaseLine line : lineList) {
 			line.draw(g);
 		}
+	}
+	
+	public int addGroup() {
+		this.g++;
+		return this.g;
 	}
 }

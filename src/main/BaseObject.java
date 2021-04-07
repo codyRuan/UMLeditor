@@ -13,6 +13,8 @@ public class BaseObject extends JPanel{
 	int width, height;
 	int x, y;
 	Point creatPoint;
+	final ArrayList<Integer> group = new ArrayList<>();
+	final ArrayList<BaseObject> myteems = new ArrayList<>();
 	private final ArrayList<Point> directionList = new ArrayList<>();
 	final ArrayList<MyPair> allLineList = new ArrayList<>();
 	BaseObject me;
@@ -31,7 +33,14 @@ public class BaseObject extends JPanel{
         	switch(c.getMode()) {
         	case 1:
         		c.hideAll();
-        		showPoint();
+        		if(!me.group.isEmpty()) {
+        			for(BaseObject b : me.myteems) {
+						b.showPoint();
+					}
+        		}
+        		else {
+        			showPoint();
+        		}
         		c.selected(me);
         		break;
         	case 2:
@@ -90,19 +99,13 @@ public class BaseObject extends JPanel{
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			if(c.getMode() == 1) {
-				end = new Point(me.getX()+(e.getX()-start.x),me.getY()+(e.getY()-start.y));
-				me.setLocation(end);
-				// move line
-				for(MyPair pair : allLineList) {
-					c.lineList.remove(pair.first);
-					if(pair.second)
-						pair.first.front = new Point(pair.first.front.x+(e.getX()-start.x),
-								pair.first.front.y+(e.getY()-start.y));
-					else {
-						pair.first.to = new Point(pair.first.to.x+(e.getX()-start.x),pair.first.to.y+(e.getY()-start.y));
+				if(!me.group.isEmpty()) {
+					for(BaseObject b : me.myteems) {
+						b.move(e, start);
 					}
-					c.lineList.add(pair.first);
 				}
+				else
+					move(e, start);
 				UMLFrame.canvas.repaint();
 			}
 		}
@@ -122,6 +125,22 @@ public class BaseObject extends JPanel{
 	public void paint(Graphics g)
 	{
 		super.paint(g);	
+	}
+	public void move(MouseEvent e, Point start) {
+		end = new Point(me.getX()+(e.getX()-start.x),me.getY()+(e.getY()-start.y));
+		me.setLocation(end);
+		// move line
+		for(MyPair pair : allLineList) {
+			c.lineList.remove(pair.first);
+			if(pair.second)
+				pair.first.front 
+				= new Point(pair.first.front.x+(e.getX()-start.x),
+						pair.first.front.y+(e.getY()-start.y));
+			else {
+				pair.first.to = new Point(pair.first.to.x+(e.getX()-start.x),pair.first.to.y+(e.getY()-start.y));
+			}
+			c.lineList.add(pair.first);
+		}
 	}
 	public void changeName(String s) {
 		

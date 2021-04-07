@@ -69,11 +69,18 @@ public class MenuBar extends JMenuBar{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+//			if(c.getSelectList().size() > 1) {
+//				BaseObject comObject = new CompositeObject(c, c.getSelectList());
+//				c.addObj(comObject);
+//				UMLFrame.canvas.add(comObject);
+//				UMLFrame.canvas.updateUI();
+//			}
 			if(c.getSelectList().size() > 1) {
-				BaseObject comObject = new CompositeObject(c, c.getSelectList());
-				c.addObj(comObject);
-				UMLFrame.canvas.add(comObject);
-				UMLFrame.canvas.updateUI();
+				int groupNum = c.addGroup();
+				for(BaseObject b : c.getSelectList()) {
+					b.group.add(groupNum);
+					b.myteems.addAll(c.getSelectList());
+				}
 			}
 		}
 	}
