@@ -4,12 +4,18 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 public class Button extends JButton{
 	Controller c;
 	public Button(String text, Controller control) {
 		super(text);
+		this.c = control;
+		this.addActionListener(new ButtonHandler(text));
+	}
+	public Button(String text, Icon icon, Controller control) {
+		super(icon);
 		this.c = control;
 		this.addActionListener(new ButtonHandler(text));
 	}
