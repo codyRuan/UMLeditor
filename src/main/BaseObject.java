@@ -73,7 +73,7 @@ public class BaseObject extends JPanel{
 		        		bl = new GeneralizationLine(start,end);
 		        		break;
 		        	case 4:
-		        		bl = new BaseLine(start,end);
+		        		bl = new CompositionLine(start,end);
 		        		break;
 		        	}
 		        	c.addLine(bl);
