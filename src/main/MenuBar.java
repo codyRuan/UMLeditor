@@ -145,6 +145,7 @@ public class MenuBar extends JMenuBar{
 				for(BaseObject obj : b.group.get(b.group.size()-1).second) {
 					obj.group.remove(obj.group.size()-1);
 				}
+				c.hideAll();
 			}
 		}
 	}

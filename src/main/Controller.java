@@ -62,11 +62,14 @@ public class Controller {
 				if(!obj.group.isEmpty()) {
 					for(BaseObject o : obj.group.get(obj.group.size()-1).second) {
 						o.showPoint();
+						if(!selectedList.contains(o))
+							selectedList.add(o);
 					}
 				}
 				else
 					obj.showPoint();
-				selectedList.add(obj);
+				if(!selectedList.contains(obj))
+					selectedList.add(obj);
 			}
 		}
 	}
