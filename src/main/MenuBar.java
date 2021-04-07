@@ -84,6 +84,7 @@ public class MenuBar extends JMenuBar{
 			}
 		}
 	}
+	
 	private class ungroupListener extends AbstractAction{
 
 		@Override
