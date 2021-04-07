@@ -87,23 +87,20 @@ public class MenuBar extends JMenuBar{
 				 co = c.getSelectedObj();
 				 int disX = co.getX() - co.creatPoint.x;
 				 int disY = co.getY() - co.creatPoint.y;
+				 BaseObject baseObj;
 				 for(BaseObject b : ((CompositeObject)co).allObject) {
 					 if(b instanceof ClassDiagram) {
-						 ClassDiagram cd = new ClassDiagram(c);
-						 cd.setEnabled(true);
-						 cd.setBounds(b.x+disX,b.y+disY, cd.getPreferredSize().width, cd.getPreferredSize().height);
-						 c.addObj(cd);
-						 UMLFrame.canvas.add(cd);
-						 UMLFrame.canvas.updateUI();
+						 baseObj = new ClassDiagram(c);
 					 }
 					 else {
-						 UseCaseDiagram usd = new UseCaseDiagram(c);
-						 usd.setEnabled(true);
-						 usd.setBounds(b.x+disX,b.y+disY, usd.getPreferredSize().width, usd.getPreferredSize().height);
-						 c.addObj(usd);
-						 UMLFrame.canvas.add(usd);
-					     UMLFrame.canvas.updateUI();
+						 baseObj = new UseCaseDiagram(c);
 					 }
+					 baseObj.setEnabled(true);
+					 baseObj.setBounds(b.x+disX,b.y+disY, 
+							 baseObj.getPreferredSize().width, baseObj.getPreferredSize().height);
+					 c.addObj(baseObj);
+					 UMLFrame.canvas.add(baseObj);
+					 UMLFrame.canvas.updateUI();
 				 }
 				 c.removeObj(co);
 				 UMLFrame.canvas.remove(co);

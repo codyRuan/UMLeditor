@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel{
@@ -18,6 +19,7 @@ public class Canvas extends JPanel{
 	public Canvas(Controller c) {
 		this.c = c;
 		this.setBackground(Color.GRAY);
+		setLayout(null);
 		initialize(); 
 	}
 	

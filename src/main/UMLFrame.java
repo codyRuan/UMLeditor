@@ -28,7 +28,6 @@ public class UMLFrame extends JFrame{
 		buttonPnl = new BtnPanel();
 		this.add(buttonPnl,BorderLayout.WEST);
 		canvas = new Canvas(control);
-		canvas.setLayout(null);
 		this.setJMenuBar(new MenuBar(control));
 		this.add(canvas,BorderLayout.CENTER);
 	}

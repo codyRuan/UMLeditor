@@ -49,27 +49,31 @@ public class BaseObject extends JPanel{
         	x = e.getX();
         	y = e.getY();
         	BaseObject toObj = c.getEnteredObj();
-        	switch(c.getMode()) {
-        	case 2:
+        	if(c.getMode() != 1 && c.getMode() != 5 && c.getMode() != 6) {
         		if(toObj != null && toObj != me) {
         			end = new Point(e.getX()-(toObj.getX()-me.getX()),
         					e.getY()-(toObj.getY()-me.getY()));
-        			System.out.println("release point:"+end);
             		end = toObj.getNearPoint(end);
             		end = new Point(end.x+toObj.getX(),end.y+toObj.getY());
-            		BaseLine bl = new BaseLine(start,end);
-            		c.addLine(bl);
+        			BaseLine bl = new BaseLine();
+		        	switch(c.getMode()) {
+		        	case 2:		        		
+	            		bl = new AssociationLine(start,end);	              	
+		        		break;
+		        	case 3:
+		        		bl = new GeneralizationLine(start,end);
+		        		break;
+		        	case 4:
+		        		bl = new BaseLine(start,end);
+		        		break;
+		        	}
+		        	c.addLine(bl);
             		MyPair pair = new MyPair(bl,true);
             		me.allLineList.add(pair);
             		pair = new MyPair(bl,false);
             		toObj.allLineList.add(pair);
             		UMLFrame.canvas.repaint();
-            	}
-        		break;
-        	case 3:
-        		break;
-        	case 4:
-        		break;
+        		}
         	}
         }
 		@Override
@@ -88,6 +92,7 @@ public class BaseObject extends JPanel{
 			if(c.getMode() == 1) {
 				end = new Point(me.getX()+(e.getX()-start.x),me.getY()+(e.getY()-start.y));
 				me.setLocation(end);
+				// move line
 				for(MyPair pair : allLineList) {
 					c.lineList.remove(pair.first);
 					if(pair.second)
@@ -101,7 +106,6 @@ public class BaseObject extends JPanel{
 				UMLFrame.canvas.repaint();
 			}
 		}
-		
 	}
 	
 	boolean visible = false;

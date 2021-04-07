@@ -75,8 +75,7 @@ public class Controller {
 	
 	public void drawLine(Graphics g) {
 		for(BaseLine line : lineList) {
-			g.drawLine(line.front.x, line.front.y,
-					line.to.x, line.to.y);
+			line.draw(g);
 		}
 	}
 }
