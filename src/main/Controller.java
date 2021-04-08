@@ -10,6 +10,7 @@ public class Controller {
 	private int g = 0;
 	private final ArrayList<BaseObject> objList = new ArrayList<>();
 	private final ArrayList<BaseObject> selectedList = new ArrayList<>();
+	private final ArrayList<Integer> groupNums = new ArrayList<>();
 	final ArrayList<BaseLine> lineList = new ArrayList<>();
 	private BaseObject selectObj;
 	private BaseObject enteredObj;
@@ -97,5 +98,21 @@ public class Controller {
 	public int addGroup() {
 		this.g++;
 		return this.g;
+	}
+	
+	public int getNumsOfGroup() {
+		int groupNum;
+		for(BaseObject b : this.selectedList) {
+			if(b.group.isEmpty()) {
+				groupNums.add(-1);
+			}
+			else {
+				groupNum = b.group.get(b.group.size()-1).first;
+				if(!groupNums.contains(groupNum)) {
+					groupNums.add(groupNum);
+				}
+			}
+		}
+		return groupNums.size();
 	}
 }

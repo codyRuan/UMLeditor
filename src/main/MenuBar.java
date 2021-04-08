@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 public class MenuBar extends JMenuBar{
 	private final Font bigFont = new Font( "console", Font.BOLD, 22 );
 	private Controller c;
+	static JMenuItem groupItem = new JMenuItem("group");
+	static JMenuItem ungroupItem = new JMenuItem("ungroup");
 	public MenuBar(Controller c) {
 		this.c = c;
 		add(createFile());
@@ -42,17 +44,15 @@ public class MenuBar extends JMenuBar{
 		item.setFont(bigFont);
 		menu.add(item);
 		menu.addSeparator();
-		item = new JMenuItem("group");
 		AbstractAction glistener = new groupListener();
-		item.addActionListener(glistener);
-		item.setFont(bigFont);
-		menu.add(item);
+		groupItem.addActionListener(glistener);
+		groupItem.setFont(bigFont);
+		menu.add(groupItem);
 		menu.addSeparator();
-		item = new JMenuItem("ungroup");
 		AbstractAction unglistener = new ungroupListener();
-		item.addActionListener(unglistener);
-		item.setFont(bigFont);
-		menu.add(item);
+		ungroupItem.addActionListener(unglistener);
+		ungroupItem.setFont(bigFont);
+		menu.add(ungroupItem);
 		menu.setFont(bigFont);
 		return menu;
 	}
@@ -76,25 +76,13 @@ public class MenuBar extends JMenuBar{
 //				UMLFrame.canvas.add(comObject);
 //				UMLFrame.canvas.updateUI();
 //			}
-			ArrayList<Integer> groupNums = new ArrayList<>();
 			int groupNum;
-			for(BaseObject b : c.getSelectList()) {
-				if(b.group.isEmpty()) {
-					groupNums.add(-1);
-				}
-				else {
-					groupNum = b.group.get(b.group.size()-1).first;
-					if(!groupNums.contains(groupNum)) {
-						groupNums.add(groupNum);
-					}
-				}
-			}
-			if(groupNums.size() > 1) {
+			if(c.getNumsOfGroup() > 1) {
 				groupNum = c.addGroup();
 				for(BaseObject b : c.getSelectList()) {
 					ArrayList<BaseObject> myteems = new ArrayList<>();
 					myteems.addAll(c.getSelectList());
-					MyPair<Integer,ArrayList<BaseObject>> pair = new MyPair(groupNum,myteems);
+					MyPair<Integer,ArrayList<BaseObject>> pair = new MyPair<Integer, ArrayList<BaseObject>>(groupNum,myteems);
 					b.group.add(pair);
 				}
 			}
@@ -129,24 +117,43 @@ public class MenuBar extends JMenuBar{
 //				 c.removeObj(co);
 //				 UMLFrame.canvas.remove(co);
 //			}
-			if(!c.getSelectedObj().group.isEmpty() 
-					|| (c.getSelectList().size() == 1 && !c.getSelectList().get(0).group.isEmpty())) {
-				int group = 0;
-				BaseObject b;
+			BaseObject b = null;
+			if(c.getSelectedObj() != null) {
 				if(!c.getSelectedObj().group.isEmpty()) {
 					b = c.getSelectedObj();		
 //					group = b.group.get(0).first;
 				}
-				else {
-					b = c.getSelectList().get(0);
-//					group = b.group.get(0).first;
-				}
-//				ArrayList<BaseObject> objList = b.group.get(0).second;
-				for(BaseObject obj : b.group.get(b.group.size()-1).second) {
-					obj.group.remove(obj.group.size()-1);
-				}
-				c.hideAll();
 			}
+			else if(c.getNumsOfGroup() == 1 && 
+					!c.getSelectList().get(0).group.isEmpty()) {
+				b = c.getSelectList().get(0);
+			}
+			else
+				return;
+			
+			for(BaseObject obj : b.group.get(b.group.size()-1).second) {
+				obj.group.remove(obj.group.size()-1);
+			}
+			c.hideAll();
+			
+//			
+//			if(!c.getSelectedObj().group.isEmpty() 
+//					|| (c.getSelectList().size() == 1 && !c.getSelectList().get(0).group.isEmpty())) {
+//				int group = 0;
+//				if(!c.getSelectedObj().group.isEmpty()) {
+//					b = c.getSelectedObj();		
+////					group = b.group.get(0).first;
+//				}
+//				else {
+//					b = c.getSelectList().get(0);
+////					group = b.group.get(0).first;
+//				}
+////				ArrayList<BaseObject> objList = b.group.get(0).second;
+//				for(BaseObject obj : b.group.get(b.group.size()-1).second) {
+//					obj.group.remove(obj.group.size()-1);
+//				}
+//				c.hideAll();
+//			}
 		}
 	}
 }

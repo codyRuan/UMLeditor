@@ -14,7 +14,6 @@ public class BaseObject extends JPanel{
 	int x, y;
 	Point creatPoint;
 	final ArrayList<MyPair<Integer,ArrayList<BaseObject>>> group = new ArrayList<>();
-//	final ArrayList<BaseObject> myteems = new ArrayList<>();
 	private final ArrayList<Point> directionList = new ArrayList<>();
 	final ArrayList<MyPair> allLineList = new ArrayList<>();
 	BaseObject me;
