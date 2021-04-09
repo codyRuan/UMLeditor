@@ -50,7 +50,7 @@ public class ClassDiagram extends BaseObject{
         GBC.weighty = 30;
         this.add(className, GBC);
         
-        col1 = new JLabel("column1");
+        col1 = new JLabel("      ");
         col1.setHorizontalAlignment(JTextField.CENTER);
         col1.setBorder(blackline);
         GBC = new GridBagConstraints();
@@ -65,7 +65,7 @@ public class ClassDiagram extends BaseObject{
         GBC.weighty = 30;
         this.add(col1, GBC);
         
-        col2 = new JLabel("column2");
+        col2 = new JLabel("      ");
         col2.setHorizontalAlignment(JTextField.CENTER);
         col2.setBorder(blackline);
         GBC = new GridBagConstraints();

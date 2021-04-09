@@ -62,7 +62,10 @@ public class MenuBar extends JMenuBar{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			String name = JOptionPane.showInputDialog("new name?");
-			c.changeName(name);
+			if(name == null)
+				return;
+			else
+				c.changeName(name);
 		}
 	}
 	private class groupListener extends AbstractAction{
