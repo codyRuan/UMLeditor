@@ -19,8 +19,7 @@ public class UseCaseDiagram extends BaseObject{
 	private JLabel objectName;
 	MouseAdapter listener;
 	MouseMotionAdapter Mlistener;
-	public UseCaseDiagram(Controller c) {
-		super(c);
+	public UseCaseDiagram() {
 		initialize();
 	    setOpaque(false);
 	}

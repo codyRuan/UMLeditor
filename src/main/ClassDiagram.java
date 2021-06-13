@@ -24,8 +24,7 @@ public class ClassDiagram extends BaseObject{
 	private JLabel col1, col2;
 	MouseAdapter listener;
 	MouseMotionAdapter Mlistener;
-	public ClassDiagram(Controller c) {
-		super(c);
+	public ClassDiagram() {
         initialize();
 	}
 	private void initialize() {

@@ -23,19 +23,18 @@ public class UMLFrame extends JFrame{
 	Controller control;
 	
 	private JPanel buttonPnl;
-	static JPanel canvas;
+	private Canvas canvas;
 	
 	public UMLFrame() {
 		super("UML editor");
 		initialize();
 	}
 	private void initialize() {
-		control = new Controller();
+		control = Controller.getInstance();
 		buttonPnl = new BtnPanel();
 		this.add(buttonPnl,BorderLayout.WEST);
-		canvas = new Canvas(control);
-		this.setJMenuBar(new MenuBar(control));
-		this.add(canvas,BorderLayout.CENTER);
+		this.setJMenuBar(new MenuBar());
+		this.add(Canvas.getInstance(),BorderLayout.CENTER);
 	}
 
 	private class BtnPanel extends JPanel{

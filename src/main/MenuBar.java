@@ -15,8 +15,8 @@ public class MenuBar extends JMenuBar{
 	private Controller c;
 	static JMenuItem groupItem = new JMenuItem("group");
 	static JMenuItem ungroupItem = new JMenuItem("ungroup");
-	public MenuBar(Controller c) {
-		this.c = c;
+	public MenuBar() {
+		this.c = Controller.getInstance();
 		add(createFile());
 		add(createEdit());
 	}

@@ -14,8 +14,15 @@ public class Controller {
 	final ArrayList<BaseLine> lineList = new ArrayList<>();
 	private BaseObject selectObj;
 	private BaseObject enteredObj;
-	public Controller() {
+	private static Controller instance = null;
+	private Controller() {
 		this.mode = 0;
+	}
+	public static Controller getInstance() {
+		if(instance == null) {
+			instance = new Controller();
+		}
+		return instance;
 	}
 	public void changeMode(int m) {
 		this.mode = m;

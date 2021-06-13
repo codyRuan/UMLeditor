@@ -13,12 +13,10 @@ public class CompositeObject extends BaseObject{
 	int leftX = 1000, leftY = 1000;
 	int rightX = 0, rightY = 0;
 	ArrayList<BaseObject> allObject;
-	public CompositeObject(Controller c) {
-		super(c);
+	public CompositeObject() {
 		setOpaque(false);
 	}
-	public CompositeObject(Controller c, ArrayList<BaseObject> list) {
-		super(c);
+	public CompositeObject(ArrayList<BaseObject> list) {
 		allObject = new ArrayList(list);
 		initialize();
 		this.setLayout(null);
@@ -31,7 +29,7 @@ public class CompositeObject extends BaseObject{
 			obj.y = obj.getY();
 			obj.setLocation(new Point(obj.getX()-leftX, obj.getY()-leftY));
 			obj.deleteListener();
-			UMLFrame.canvas.remove(obj);
+			Canvas.getInstance().remove(obj);
 			obj.hidePoint();
 			c.removeObj(obj);
 			this.add(obj);

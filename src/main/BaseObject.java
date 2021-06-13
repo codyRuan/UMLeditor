@@ -18,8 +18,8 @@ public class BaseObject extends JPanel{
 	final ArrayList<MyPair> allLineList = new ArrayList<>();
 	BaseObject me;
 	Controller c;
-	public BaseObject(Controller c) {
-		this.c = c;
+	public BaseObject() {
+		this.c = Controller.getInstance();
 	}
 	
 	private Point start,end;
@@ -80,7 +80,7 @@ public class BaseObject extends JPanel{
             		me.allLineList.add(pair);
             		pair = new MyPair(bl,false);
             		toObj.allLineList.add(pair);
-            		UMLFrame.canvas.repaint();
+            		Canvas.getInstance().repaint();
         		}
         	}
         }
@@ -105,7 +105,7 @@ public class BaseObject extends JPanel{
 				}
 				else
 					move(e, start);
-				UMLFrame.canvas.repaint();
+				Canvas.getInstance().repaint();
 			}
 		}
 	}

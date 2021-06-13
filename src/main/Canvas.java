@@ -14,23 +14,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel{
-	CanvasListener listener;
-	CanvasMotionListener Mlistener;
 	Controller c;
 	private Point start, end;
+	private static Canvas instance = null;
 	
-	public Canvas(Controller c) {
-		this.c = c;
+	private Canvas() {
 		this.setBackground(Color.GRAY);
 		setLayout(null);
 		initialize(); 
 	}
+	public static Canvas getInstance() {
+		if(instance == null) {
+			instance = new Canvas();
+		}
+		return instance;
+	}
 	
 	private void initialize() {
-		listener = new CanvasListener();
-		Mlistener = new CanvasMotionListener();
-		this.addMouseListener(listener);
-        this.addMouseMotionListener(Mlistener);
+		this.c = Controller.getInstance();
+		this.addMouseListener(new CanvasListener());
+		this.addMouseMotionListener(new CanvasMotionListener());
 	}
 	
 	private boolean dragging = false;
@@ -43,22 +46,22 @@ public class Canvas extends JPanel{
 	    		System.out.println("set selected to null");
 	    		break;
 	    	case 5:
-		    	ClassDiagram cd = new ClassDiagram(c);
+	    		BaseObject cd = new ClassDiagram();
 		    	cd.setEnabled(true);
 		    	cd.setBounds(e.getPoint().x,e.getPoint().y, cd.getPreferredSize().width, cd.getPreferredSize().height);
 		    	cd.creatPoint = e.getPoint();
 		    	c.addObj(cd);
-		        UMLFrame.canvas.add(cd);
-		        UMLFrame.canvas.updateUI();
+		    	Canvas.getInstance().add(cd);
+		    	Canvas.getInstance().updateUI();
 		        break;
 	    	case 6:
-	    		UseCaseDiagram usd = new UseCaseDiagram(c);
+	    		BaseObject usd = new UseCaseDiagram();
 	    		usd.setEnabled(true);
 	    		usd.setBounds(e.getPoint().x,e.getPoint().y, usd.getPreferredSize().width, usd.getPreferredSize().height);
 	    		usd.creatPoint = e.getPoint();
 	    		c.addObj(usd);
-	    		UMLFrame.canvas.add(usd);
-		        UMLFrame.canvas.updateUI();
+	    		Canvas.getInstance().add(usd);
+	    		Canvas.getInstance().updateUI();
 		        break;
 	    	}
 	    }
