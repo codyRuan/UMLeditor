@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import line.BaseLine;
+import object.BaseObject;
+
 
 public class Controller {
 	private int mode;
@@ -67,8 +70,8 @@ public class Controller {
 					obj.getY()+obj.getHeight());
 			if(obj_s.x >= lx && obj_s.y >= ly
 					&& obj_e.x <= rx && obj_e.y <= ry) {
-				if(!obj.group.isEmpty()) {
-					for(BaseObject o : obj.group.get(obj.group.size()-1).second) {
+				if(!obj.getGroup().isEmpty()) {
+					for(BaseObject o : obj.getGroup().get(obj.getGroup().size()-1).second) {
 						o.showPoint();
 						if(!selectedList.contains(o))
 							selectedList.add(o);
@@ -101,7 +104,9 @@ public class Controller {
 			line.draw(g);
 		}
 	}
-	
+	public ArrayList<BaseLine> getLineList(){
+		return lineList;
+	}
 	public int addGroup() {
 		this.g++;
 		return this.g;
@@ -110,11 +115,11 @@ public class Controller {
 	public int getNumsOfGroup() {
 		int groupNum;
 		for(BaseObject b : this.selectedList) {
-			if(b.group.isEmpty()) {
+			if(b.getGroup().isEmpty()) {
 				groupNums.add(-1);
 			}
 			else {
-				groupNum = b.group.get(b.group.size()-1).first;
+				groupNum = b.getGroup().get(b.getGroup().size()-1).first;
 				if(!groupNums.contains(groupNum)) {
 					groupNums.add(groupNum);
 				}

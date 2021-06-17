@@ -1,4 +1,4 @@
-package main;
+package object;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,6 +8,14 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import line.AssociationLine;
+import line.BaseLine;
+import line.CompositionLine;
+import line.GeneralizationLine;
+import main.Canvas;
+import main.Controller;
+import tool.MyPair;
 
 public class BaseObject extends JPanel{
 	int width, height;
@@ -109,7 +117,12 @@ public class BaseObject extends JPanel{
 			}
 		}
 	}
-	
+	public ArrayList<MyPair<Integer,ArrayList<BaseObject>>> getGroup() {
+		return group;
+	}
+	public void setCreatePoint(Point p) {
+		this.creatPoint = p;
+	}
 	boolean visible = false;
 	public void showPoint() {
 		visible = true;
@@ -132,14 +145,14 @@ public class BaseObject extends JPanel{
 		for(MyPair pair : allLineList) {
 			BaseLine b = (BaseLine) pair.first;
 			Boolean bool = (Boolean) pair.second;
-			c.lineList.remove(b);
+			c.getLineList().remove(b);
 			if(bool) // head side
-				b.front = new Point(b.front.x+(e.getX()-start.x),
-						b.front.y+(e.getY()-start.y));
+				b.setFront(new Point(b.getFront().x+(e.getX()-start.x),
+						b.getFront().y+(e.getY()-start.y)));
 			else { // tail side
-				b.to = new Point(b.to.x+(e.getX()-start.x),b.to.y+(e.getY()-start.y));
+				b.setTo(new Point(b.getTo().x+(e.getX()-start.x),b.getTo().y+(e.getY()-start.y)));
 			}
-			c.lineList.add(b);
+			c.getLineList().add(b);
 		}
 	}
 	public void changeName(String s) {

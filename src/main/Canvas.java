@@ -13,6 +13,10 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import object.BaseObject;
+import object.ClassDiagram;
+import object.UseCaseDiagram;
+
 public class Canvas extends JPanel{
 	Controller c;
 	private Point start, end;
@@ -49,7 +53,7 @@ public class Canvas extends JPanel{
 	    		BaseObject cd = new ClassDiagram();
 		    	cd.setEnabled(true);
 		    	cd.setBounds(e.getPoint().x,e.getPoint().y, cd.getPreferredSize().width, cd.getPreferredSize().height);
-		    	cd.creatPoint = e.getPoint();
+		    	cd.setCreatePoint(e.getPoint());
 		    	c.addObj(cd);
 		    	Canvas.getInstance().add(cd);
 		    	Canvas.getInstance().updateUI();
@@ -58,7 +62,7 @@ public class Canvas extends JPanel{
 	    		BaseObject usd = new UseCaseDiagram();
 	    		usd.setEnabled(true);
 	    		usd.setBounds(e.getPoint().x,e.getPoint().y, usd.getPreferredSize().width, usd.getPreferredSize().height);
-	    		usd.creatPoint = e.getPoint();
+	    		usd.setCreatePoint(e.getPoint());
 	    		c.addObj(usd);
 	    		Canvas.getInstance().add(usd);
 	    		Canvas.getInstance().updateUI();

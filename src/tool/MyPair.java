@@ -1,8 +1,8 @@
-package main;
+package tool;
 
 public class MyPair<U,V> {
-	U first;
-	V second;
+	public U first;
+	public V second;
 	public MyPair(U b, V h) {
 		this.first = b;
 		this.second = h;

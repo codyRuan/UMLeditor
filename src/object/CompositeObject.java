@@ -1,4 +1,4 @@
-package main;
+package object;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,6 +8,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import main.Canvas;
 
 public class CompositeObject extends BaseObject{
 	int leftX = 1000, leftY = 1000;
